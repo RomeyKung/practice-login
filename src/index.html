@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- login form -->
+    <input type="text" id="email" placeholder="Enter Email" />
+    <input type="password" id="password" placeholder="Enter password" />
+    <button onclick="login()">Login</button>
+    <button onclick="getUsers()">Get Users</button>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const login = async () => {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+      const respond = await axios.post("http://localhost:8000/api/login", {
+        email: email,
+        password: password,
+      }, {
+        withCredentials: true,
+      });
+
+    //   localStorage.setItem("token", respond.data.token);
+    };
+
+    const getUsers = async () => {
+    //   const token = localStorage.getItem("token");
+      const respond = await axios.get("http://localhost:8000/api/users", {
+        // headers: {
+        //   "authorization": `Bearer ${token}`,
+        // },
+        withCredentials: true,
+      });
+      console.log('user data:',respond.data);
+    };
+  </script>
+</html>
